@@ -1,0 +1,46 @@
+package {{invokerPackage}}.config;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
+
+@Configuration
+@ComponentScan({"com.onyx.client"})
+public class OnyxConfig {
+
+    @Value("${onyx.token.url:{{#authMethods}}{{tokenUrl}}{{/authMethods}}}")
+    private String tokenURL;
+
+    @Value("${onyx.client.id:#{null}}")
+    private String clientId;
+
+    @Value("${onyx.client.secret:#{null}}")
+    private String clientSecret;
+
+    public String getTokenURL() {
+        return tokenURL;
+    }
+
+    public void setTokenURL(String tokenURL) {
+        this.tokenURL = tokenURL;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getClientSecret() {
+        return clientSecret;
+    }
+
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
+    }
+
+}

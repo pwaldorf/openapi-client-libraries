@@ -1,0 +1,14 @@
+{
+  "files": {
+    "config/OnyxConfig.mustache": {
+      "folder": "src/main/java/com/onyx/client/config",
+      "templateType": "SupportingFiles",
+      "destinationFilename": "OnyxConfig.java"
+    },
+    "auth/OnyxAuthClient.mustache": {
+      "folder": "src/main/java/com/onyx/client/auth",
+      "templateType": "SupportingFiles",
+      "destinationFilename": "OnyxAuthClient.java"
+    }
+  }
+}

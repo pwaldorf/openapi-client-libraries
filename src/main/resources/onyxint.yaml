@@ -1,0 +1,284 @@
+openapi: 3.0.0
+info:
+  title: Onyx Integrator Rest API
+  description: API for Onyx Integrator - Development POC
+  version: 1.0.0
+  contact:
+    name: Philip Waldorf
+    url: http://www.onyx.com
+    email: philip.waldorf@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - description: Rest Demo
+    url: http://192.168.5.0:{port}
+    variables:
+      port:
+        default: '8083'
+
+tags:
+  - name: rest-demo
+    description: Rest Demo
+  - name: operation-handler
+    description: Operation Handler
+  - name: web-mvc-link-handler
+    description: Web MVC Links Handler
+  - name: basic-error-controller
+    description: Basic Error Controller
+
+paths:
+  /rest/hello:
+    #x-liink-securitySchemes:
+    #  - myTest: Test1
+    get:
+      tags:
+        - rest-demo
+      summary: rest demo
+      operationId: restDemoGET
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestDemo'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: "Not Found"
+    post:
+      tags:
+        - rest-demo
+      summary: rest demo post
+      operationId: restDemoPost
+
+      requestBody:
+        x-has-auth: true
+        content:
+          "application/json":
+            schema:
+              $ref: '#/components/schemas/Message'
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestDemo'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: "Not Found"
+  /onyxintg/api/v1/actuator:
+    get:
+      tags:
+        - web-mvc-link-handler
+      summary: links
+      operationId: linksUsingGET
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Links'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: "Not Found"
+  /onyxintg/api/v1/actuator/health:
+    get:
+      tags:
+        - operation-handler
+      summary: handle
+      operationId: handleUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            application/vnd.spring-boot.actuator.v2+json:
+              schema:
+                type: object
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                type: object
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: "Not Found"
+
+  /onyxintg/api/v1/actuator/health/**:
+    get:
+      tags:
+        - operation-handler
+      summary: handle
+      operationId: handleUsingGET_1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            application/vnd.spring-boot.actuator.v2+json:
+              schema:
+                type: object
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                type: object
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: "Not Found"
+  /onyxintg/api/v1/actuator/info:
+    get:
+      tags:
+        - operation-handler
+      summary: handle
+      operationId: handleUsingGET_2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            application/vnd.spring-boot.actuator.v2+json:
+              schema:
+                type: object
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                type: object
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: "Not Found"
+  /onyxintg/api/v1/error:
+    get:
+      tags:
+        - basic-error-controller
+      summary: errorHtml
+      operationId: errorHtmlUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: object
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: "Not Found"
+    head:
+      tags:
+        - basic-error-controller
+      summary: errorHtml
+      operationId: errorHtmlUsingHEAD
+      requestBody:
+        content:
+          applicationj/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: object
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: "Not Found"
+
+components:
+  schemas:
+    RestDemo:
+      title: Root
+      type: string
+
+    Message:
+      title: Root
+      type: object
+      properties:
+        token:
+          title: token
+          type: string
+        message:
+          title: Message
+          type: string
+
+
+    Links:
+      title: Root
+      type: object
+      properties:
+        _links:
+          title: _links
+          type: object
+          properties:
+            self:
+              title: belf
+              type: object
+              properties:
+                href:
+                  type: string
+                templated:
+                  type: boolean
+            beans:
+              title: beans
+              type: object
+              properties:
+                href:
+                  type: string
+                templated:
+                  type: boolean
+      example:
+        _links:
+          self:
+            href: http://localhost:8080/onyxintg/api/v1/actuator
+            templated: false
+          beans:
+            href: http://localhost:8080/onyxintg/api/v1/beans
+            templated: false
+
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: Standard OAUTH2
+      x-auth-in-body: true
+      flows:
+        clientCredentials:
+          tokenUrl: http://192.168.5.1:8080/auth/realms/TestPKCE/protocol/openid-connect/token
+          scopes:
+            email: email
+            profile: profile
+security:
+  - oAuth2ClientCredentials:
+      - email
+      - profile
