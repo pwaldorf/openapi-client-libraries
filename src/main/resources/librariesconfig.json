@@ -1,0 +1,61 @@
+{
+	"client": {
+		"clientname": "Bank of America",
+		"userid": "V567609"
+	},
+	"servicelevel": "4",
+	"clientlibraries": {
+		"onyxproduct": "Confirm",
+		"onyxintegrator": false
+		"apiformat": "JSON",
+		"languagetype": "JAVA",
+		"features": [
+			{
+				"featurename": "security",
+				"featuretype": "OAUTH2",
+				"featureparms": [
+				{
+					"parmname": "granttype",
+					"parmvalue": "Authcode w/PKCE"
+				},
+				{
+					"parmname": "tokenurl",
+					"parmvalue": "https://www.test.com/token"
+				},
+				{
+					"parmname": "scope",
+					"parmvalue": "test"
+				}
+				]
+			},
+			{
+				"featurename": "logging",
+				"featuretype": "inbound",
+				"featureparms": [
+				{
+					"parmname": "resource",
+					"parmvalue": "console"
+				}
+				]
+			},
+			{
+				"featurename": "encryption",
+				"featuretype": "AppProtect",
+				"featureparms": [
+				{
+					"parmname": "privatekey",
+					"parmvalue": ""
+				},
+				{
+					"parmname": "clientid",
+					"parmvalue": "testid"
+				},
+				{
+					"parmname": "appprotecturl",
+					"parmvalue": "https://www.test.com/appprotect"
+				}
+				]
+			}			
+		]
+	}
+}
