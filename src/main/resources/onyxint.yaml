@@ -271,13 +271,13 @@ components:
     oAuth2ClientCredentials:
       type: oauth2
       description: Standard OAUTH2
-      x-auth-in-body: true
       flows:
         clientCredentials:
           tokenUrl: http://192.168.5.1:8080/auth/realms/TestPKCE/protocol/openid-connect/token
           scopes:
             email: email
             profile: profile
+
 security:
   - oAuth2ClientCredentials:
       - email

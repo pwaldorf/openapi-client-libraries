@@ -35,7 +35,7 @@
                                     <generateApiDocumentation>true</generateApiDocumentation>
                                     <generateApiTests>false</generateApiTests>
                                     <generateModels>true</generateModels>
-                                    <generateModelDocumentation>true</generateModelDocumentation>
+                                    <generateModelDocumentation>false</generateModelDocumentation>
                                     <generateModelTests>false</generateModelTests>
                                     <generateSupportingFiles>true</generateSupportingFiles>
                                     <configurationFile>${project.basedir}/src/main/resources/Java/libraries/resttemplate/config.json</configurationFile>
