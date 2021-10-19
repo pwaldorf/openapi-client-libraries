@@ -277,7 +277,6 @@ components:
           scopes:
             email: email
             profile: profile
-
 security:
   - oAuth2ClientCredentials:
       - email

@@ -1,0 +1,54 @@
+package com.onyx.client.log;
+
+import kotlin.Pair;
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.ResponseBody;
+import okhttp3.Response;
+import okio.Buffer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+
+
+public class LoggingInterceptor implements Interceptor {
+
+    @Override public Response intercept(Interceptor.Chain chain) throws IOException {
+
+        Logger logger = LoggerFactory.getLogger("LoggingInterceptor.class");
+
+        Request request = chain.request();
+
+        logger.info("Request URL: {}",request.url());
+
+        for(Pair<? extends String, ? extends String> header: request.headers()) {
+            logger.info("Request Header: {}",header);
+        }
+
+        if (request.body() != null) {
+            Buffer requestBuffer = new Buffer();
+            request.body().writeTo(requestBuffer);
+            logger.info("Request Body: {}", requestBuffer.readUtf8());
+        }
+
+        Response response = chain.proceed(request);
+
+        logger.info("Response URL: {}",response.request().url());
+
+        for(Pair<? extends String, ? extends String> header: response.headers()) {
+            logger.info("Response Header: {}",header);
+        }
+
+        if (response.body() != null) {
+            MediaType contentType = response.body().contentType();
+            String content = response.body().string();
+            logger.info("Response Body: {}",content);
+            ResponseBody wrappedBody = ResponseBody.create(content, contentType);
+            return response.newBuilder().body(wrappedBody).build();
+        } else {
+            return response.newBuilder().build();
+        }
+    }
+}

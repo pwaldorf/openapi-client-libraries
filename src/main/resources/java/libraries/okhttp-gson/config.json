@@ -1,0 +1,19 @@
+{
+  "additionalProperties": {
+    "onyx-logging": {
+      "onyx-logging-type": "inbound",
+      "onyx-logging-parms": [
+        {
+          "parm1": "parmvalue"
+        }
+      ]
+    }
+  },
+  "files": {
+    "log/LoggingInterceptor.mustache": {
+      "folder": "src/main/java/com/onyx/client/log",
+      "templateType": "SupportingFiles",
+      "destinationFilename": "LoggingInterceptor.java"
+    }
+  }
+}

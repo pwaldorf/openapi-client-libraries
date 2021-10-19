@@ -1,4 +1,14 @@
 {
+  "additionalProperties": {
+    "onyx-logging": {
+      "onyx-logging-type": "inbound",
+      "onyx-logging-parms": [
+        {
+          "parm1": "parmvalue"
+        }
+      ]
+    }
+  },
   "files": {
     "config/OnyxConfig.mustache": {
       "folder": "src/main/java/com/onyx/client/config",
